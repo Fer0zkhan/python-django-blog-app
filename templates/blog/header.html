@@ -1,0 +1,40 @@
+<div class="container">
+    <header class="p-3 mb-3 border-bottom">
+        <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-between">
+            <a href="{% url 'blog' %}" class="d-flex align-items-center mb-lg-0 text-dark text-decoration-none">
+                <h5 class="m-0">Blog Application</h5>
+            </a>
+
+            {% if request.user.is_authenticated %}
+                <div class="dropdown text-end">
+                    <a href="" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ request.user.user_avatar.url }}" alt="mdo" width="32" height="32"
+                             class="rounded-circle">
+                        <span>{{ request.user.username }}</span>
+                    </a>
+
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="{% url 'user-detail' request.user.id %}">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+            <a class="p-2 link-secondary" href="{% url 'blog' %}">All</a>
+            {% for topic in topics %}
+                <a class="p-2 link-secondary"
+                   href="{% url 'blog' %}?query={{ topic.topic_title }}">{{ topic.topic_title }}</a>
+            {% endfor %}
+        </nav>
+    </div>
+
+</div>

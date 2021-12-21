@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="{{ blog.blog_image.url }}" class="img-fluid rounded" alt="...">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h6 class="card-title"><a
+                                href="{% url 'user-detail' blog.user.id %}">@{{ blog.user.username }}</a></h6>
+
+                        <h5 class="card-title">{{ blog.topic.topic_title }}</h5>
+                        <h6 class="card-title">{{ blog.blog_title }}</h6>
+                        <p class="card-text">{{ blog.blog_description }}</p>
+                        {% if request.user == blog.user %}
+                            <a href="{% url 'blog-edit' blog.id %}" class="btn btn-info">Edit</a>
+                            <a href="{% url 'blog-delete' blog.id %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
+                        <p class="card-text mt-3"><small class="text-muted">Last
+                            updated {{ blog.created_at|timesince }}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

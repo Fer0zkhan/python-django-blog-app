@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="p-2 mb-2 d-flex flex-wrap justify-content-center justify-content-lg-around align-items-center">
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                        <input type="search" name="search_blog" class="form-control" placeholder="Search..."
+                               aria-label="Search" value="{{ search_blog }}">
+                    </form>
+                    <a href="{% url 'blog-create' %}" class="btn btn-primary">Add new blog</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="p-2 text-white rounded bg-dark">
+            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                <p class="m-0">We Have Total {{ blogs.count }} Blog{{ blogs.count|pluralize:"s" }}.</p>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4 py-2">
+            {% if blogs %}
+                {% for blog in blogs %}
+                    <div class="col">
+                        <div class="card">
+                            <div style="width: 100%; height: 300px">
+                                <img style="height: 100%; object-fit: cover" src="{{ blog.blog_image.url }}"
+                                     class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title"><a
+                                        href="{% url 'user-detail' blog.user.id %}">@{{ blog.user.username }}</a></h6>
+                                <h5 class="card-title">{{ blog.topic.topic_title }}</h5>
+                                <h6 class="card-title"><a
+                                        href="{% url 'blog-details' blog.id %}">{{ blog.blog_title }}</a></h6>
+                                <p class="card-text">{{ blog.blog_description|truncatewords:10 }}</p>
+                                <p class="text-muted">{{ blog.created_at|timesince }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3>Not Found</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
