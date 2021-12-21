@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-()963=!vme)h7-0rfybui_i4&1lu%_%prk-ps@vd%_d83_b%^y
 DEBUG = True
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'blog-application-django-python.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'python-django-blog-application.herokuapp.com']
 
 # Application definition
 
